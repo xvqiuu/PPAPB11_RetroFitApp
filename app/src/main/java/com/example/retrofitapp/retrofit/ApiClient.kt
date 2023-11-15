@@ -14,7 +14,7 @@ object ApiClient {
             .addInterceptor(interceptor)
             .build()
         val builder = Retrofit.Builder()
-            .baseUrl("https://api.coinstats.app/public/v1/")
+            .baseUrl("https://www.balldontlie.io/api/v1/")
             .addConverterFactory(GsonConverterFactory.create())
             .client(client)
             .build()

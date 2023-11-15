@@ -5,7 +5,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.retrofitapp.databinding.ActivityMainBinding
-import com.example.retrofitapp.model.Data
 import com.example.retrofitapp.model.Teams
 import com.example.retrofitapp.retrofit.ApiClient
 import retrofit2.Call
@@ -23,21 +22,16 @@ class MainActivity : AppCompatActivity() {
 
         val client = ApiClient.getInstance()
         val response = client.getAllTeams()
-        val teamList = ArrayList<String>()
+
 
         response.enqueue(object : Callback<Teams> {
             override fun onResponse(call: Call<Teams>, response: Response<Teams>) {
-                for(i in response.body()!!.data){
-                    teamList.add(i.id.toString())
-                    teamList.add(i.name)
-                    teamList.add(i.division)
-                    teamList.add(i.city)
-                }
-
-                with(binding){
-                    rvTeams.apply {
-                        adapter = TeamAdapter(response.body()!!.data)
-                        layoutManager = LinearLayoutManager(context)
+                if (response.isSuccessful) {
+                    with(binding){
+                        rvTeams.apply {
+                            adapter = TeamAdapter(response.body()!!.data)
+                            layoutManager = LinearLayoutManager(context)
+                        }
                     }
                 }
             }
@@ -51,4 +45,3 @@ class MainActivity : AppCompatActivity() {
         })
     }
 }
-

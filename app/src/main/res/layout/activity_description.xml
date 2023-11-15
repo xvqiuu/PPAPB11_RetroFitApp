@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/blue"
+    >
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingBottom="20dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Deskripsi Team"
+            style="@style/Title"
+            android:fontFamily="@font/poppinsmedium"
+            />
+
+        <ImageView
+            android:id="@+id/detail_image"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:layout_gravity="center"
+            android:src="@drawable/baseline_groups_24"
+            />
+
+        <TextView
+            android:id="@+id/desc_id"
+            android:text="Id Team"
+            style="@style/description"
+            android:layout_marginTop="15dp"
+            />
+
+        <TextView
+            android:id="@+id/desc_name"
+            android:text="Name"
+            style="@style/description"
+            />
+
+        <TextView
+            android:id="@+id/desc_division"
+            android:text="Division"
+            style="@style/description"
+            />
+
+        <TextView
+            android:id="@+id/desc_city"
+            android:text="City"
+            style="@style/description"
+            />
+
+        <Button
+            android:id="@+id/btn_back"
+            android:text="Kembali"
+            style="@style/button"
+            android:textStyle="bold"
+            />
+    </LinearLayout>
+
+</LinearLayout>

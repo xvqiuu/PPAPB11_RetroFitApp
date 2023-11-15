@@ -1,12 +1,15 @@
 package com.example.retrofitapp
 
+import android.content.Intent
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.retrofitapp.databinding.ItemTeamsBinding
 import com.example.retrofitapp.model.Data
 
-class TeamAdapter(private val listTeams: List<Data>) :
+class TeamAdapter(private val listTeams: List<Data>):
     RecyclerView.Adapter<TeamAdapter.ItemTeamViewHolder>() {
 
     inner class ItemTeamViewHolder(private val binding: ItemTeamsBinding) :
@@ -19,6 +22,22 @@ class TeamAdapter(private val listTeams: List<Data>) :
                 divisionTxt.text = data.division
                 cityTxt.text = data.city
 
+                itemView.setOnClickListener {
+                    val bundle = Bundle()
+                    bundle.putInt("id", data.id)
+                    bundle.putString("name", data.name)
+                    bundle.putString("division", data.division)
+                    bundle.putString("city", data.city)
+
+                    Toast.makeText(itemView.context, "You clicked on ${data.name}",
+                        Toast.LENGTH_SHORT).show()
+
+                    val intent = Intent(
+                        binding.root.context,
+                        DecriptionActivity::class.java
+                    ).apply { putExtras(bundle) }
+                    binding.root.context.startActivity(intent)
+                }
             }
         }
     }
@@ -26,7 +45,7 @@ class TeamAdapter(private val listTeams: List<Data>) :
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): TeamAdapter.ItemTeamViewHolder {
+    ): ItemTeamViewHolder {
         val binding = ItemTeamsBinding.inflate(
             LayoutInflater.from(parent.context),parent,
             false)
