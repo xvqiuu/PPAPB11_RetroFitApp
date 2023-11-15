@@ -1,10 +1,11 @@
 package com.example.retrofitapp.retrofit
 
-import com.example.retrofitapp.model.Users
+import com.example.retrofitapp.model.Teams
 import retrofit2.Call
 import retrofit2.http.GET
 
 interface ApiService {
-    @GET("hospitals")
-    fun getAllUsers() : Call<Users>
+    @GET("teams")
+    fun getAllTeams() : Call<Teams>
+
 }

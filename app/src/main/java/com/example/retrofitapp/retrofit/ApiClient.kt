@@ -14,7 +14,7 @@ object ApiClient {
             .addInterceptor(interceptor)
             .build()
         val builder = Retrofit.Builder()
-            .baseUrl("https://dekontaminasi.com/api/id/covid19/hospitals/")
+            .baseUrl("https://api.coinstats.app/public/v1/")
             .addConverterFactory(GsonConverterFactory.create())
             .client(client)
             .build()
