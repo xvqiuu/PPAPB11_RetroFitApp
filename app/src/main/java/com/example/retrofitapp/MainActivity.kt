@@ -1,45 +1,58 @@
 package com.example.retrofitapp
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.ArrayAdapter
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.retrofitapp.databinding.ActivityMainBinding
-import com.example.retrofitapp.model.Users
+import com.example.retrofitapp.model.Data
+import com.example.retrofitapp.model.Teams
 import com.example.retrofitapp.retrofit.ApiClient
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
-    val binding by lazy {
+    private val binding by lazy {
         ActivityMainBinding.inflate(layoutInflater)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+
         val client = ApiClient.getInstance()
-        val response = client.getAllUsers()
+        val response = client.getAllTeams()
+        val teamList = ArrayList<String>()
 
-        response.enqueue(object : Callback<Users> {
-            override fun onResponse(call: Call<Users>, response: Response<Users>) {
-                val names = arrayListOf<String>()
-                for (data in response.body()?.data ?: arrayListOf()){
-                    names.add(data.name)
+        response.enqueue(object : Callback<Teams> {
+            override fun onResponse(call: Call<Teams>, response: Response<Teams>) {
+                for(i in response.body()!!.data){
+                    teamList.add(i.id.toString())
+                    teamList.add(i.name)
+                    teamList.add(i.division)
+                    teamList.add(i.city)
                 }
-                val adapter = ArrayAdapter (
-                    this@MainActivity,
-                    android.R.layout.simple_list_item_1,
-                    names
-                )
-                binding.lsView.adapter = adapter
+
+                with(binding){
+                    rvTeams.apply {
+                        adapter = TeamAdapter(response.body()!!.data)
+                        layoutManager = LinearLayoutManager(context)
+                    }
+                }
             }
 
-            override fun onFailure(call: Call<Users>, t: Throwable) {
-
+            override fun onFailure(call: Call<Teams>, t: Throwable) {
+                Toast.makeText(
+                    this@MainActivity, "Koneksi error",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
-
-        }
-        )
+        })
+    }
+    fun onItemClick(data: Data) {
+        Toast.makeText(this@MainActivity, "You clicked on ${data.name}",
+            Toast.LENGTH_SHORT).show()
     }
 }
+
