@@ -50,9 +50,5 @@ class MainActivity : AppCompatActivity() {
             }
         })
     }
-    fun onItemClick(data: Data) {
-        Toast.makeText(this@MainActivity, "You clicked on ${data.name}",
-            Toast.LENGTH_SHORT).show()
-    }
 }
 
