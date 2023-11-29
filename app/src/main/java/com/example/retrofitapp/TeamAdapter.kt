@@ -34,7 +34,7 @@ class TeamAdapter(private val listTeams: List<Data>):
 
                     val intent = Intent(
                         binding.root.context,
-                        DecriptionActivity::class.java
+                        DescriptionActivity::class.java
                     ).apply { putExtras(bundle) }
                     binding.root.context.startActivity(intent)
                 }
